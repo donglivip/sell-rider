@@ -1,0 +1,52 @@
+<template>
+	<div id="app"><router-view /></div>
+</template>
+
+<script>
+	import dingwei from './vuex/dingwei.js'
+export default {
+	name: 'App',
+	methods: {
+		weizhi: function() {
+			var that=this
+			$.ajax({
+				type: 'post',
+				url: that.myurl + '/rider/updateUsRiMapPlace',
+				dataType: 'json',
+				data: {
+					usRiMapPlace: JSON.stringify([dingwei.jing, dingwei.wei]),
+					usRiderId: localStorage.getItem('userid')
+				},
+				success: function(res) {}
+			});
+		}
+	},
+	mounted:function(){
+		var that=this
+		// var jishi=setInterval(function(){
+		// 	that.weizhi()
+		// },5000)
+	},
+	computed: {
+		myurl() {
+			return this.$store.state.myurl;
+		}
+	}
+};
+</script>
+
+<style>
+* {
+	padding: 0;
+	margin: 0;
+}
+html,
+body,
+.wrapper,
+#app {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	font-size: 0.22rem;
+}
+</style>

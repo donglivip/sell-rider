@@ -1,0 +1,101 @@
+import Vue from 'vue'
+import Router from 'vue-router'
+
+Vue.use(Router)
+
+export default new Router({
+  routes: [
+    {
+      path: '/',
+			redirect:'/index'
+    },{
+				path: '/index',
+				name: 'index',
+				component: resolve => require(['@/components/index'], resolve)
+			},{
+				path: '/peisong',
+				name: 'peisong',
+				component: resolve => require(['@/components/peisong'], resolve)
+			},{
+				path: '/paotui-mai',
+				name: 'paotui-mai',
+				component: resolve => require(['@/components/paotui-mai'], resolve)
+			},{
+				path: '/lishidingdan',
+				name: 'lishidingdan',
+				component: resolve => require(['@/components/lishidingdan'], resolve)
+			},{
+				path: '/denglu',
+				name: 'denglu',
+				component: resolve => require(['@/components/denglu'], resolve)
+			},{
+				path: '/wodedingdan',
+				name: 'wodedingdan',
+				component: resolve => require(['@/components/wodedingdan'], resolve)
+			},{
+				path: '/waimaidingdan',
+				name: 'waimaidingdan',
+				component: resolve => require(['@/components/waimaidingdan'], resolve)
+			},{
+				path: '/caiwuzhongxin',
+				name: 'caiwuzhongxin',
+				component: resolve => require(['@/components/caiwuzhongxin'], resolve)
+			},{
+				path: '/tixian',
+				name: 'tixian',
+				component: resolve => require(['@/components/tixian'], resolve)
+			},{
+				path: '/fuwuzhongxin',
+				name: 'fuwuzhongxin',
+				component: resolve => require(['@/components/fuwuzhongxin'], resolve)
+			},{
+				path: '/shouzhijilu',
+				name: 'shouzhijilu',
+				component: resolve => require(['@/components/shouzhijilu'], resolve)
+			},{
+				path: '/tongzhixiaoxi',
+				name: 'tongzhixiaoxi',
+				component: resolve => require(['@/components/tongzhixiaoxi'], resolve)
+			},{
+				path: '/shimingrenzheng',
+				name: 'shimingrenzheng',
+				component: resolve => require(['@/components/shimingrenzheng'], resolve)
+			},{
+				path: '/dingdanzhuangtai',
+				name: 'dingdanzhuangtai',
+				component: resolve => require(['@/components/dingdanzhuangtai'], resolve)
+			},{
+				path: '/dingdanxiangqing',
+				name: 'dingdanxiangqing',
+				component: resolve => require(['@/components/dingdanxiangqing'], resolve)
+			},{
+				path: '/xiangqing02',
+				name: 'xiangqing02',
+				component: resolve => require(['@/components/xiangqing02'], resolve)
+			},{
+				path: '/xiadan',
+				name: 'xiadan',
+				component: resolve => require(['@/components/xiadan'], resolve)
+			},{
+				path: '/renzheng02',
+				name: 'renzheng02',
+				component: resolve => require(['@/components/renzheng02'], resolve)
+			},{
+				path: '/bangdingzhifu',
+				name: 'bangdingzhifu',
+				component: resolve => require(['@/components/bangdingzhifu'], resolve)
+			},{
+				path: '/quxiangqing',
+				name: 'quxiangqing',
+				component: resolve => require(['@/components/quxiangqing'], resolve)
+			},{
+				path: '/quzhuangtai',
+				name: 'quzhuangtai',
+				component: resolve => require(['@/components/quzhuangtai'], resolve)
+			},{
+				path: '/xiugaizhifu',
+				name: 'xiugaizhifu',
+				component: resolve => require(['@/components/xiugaizhifu'], resolve)
+			}
+  ]
+})

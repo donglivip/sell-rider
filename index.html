@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>bang</title>
+		<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.4&key=f75b7c967a803cea0a8f4b6dd3cf5e14"></script>
+		<script src="http://webapi.amap.com/ui/1.0/main.js" type="text/javascript" charset="utf-8"></script>
+    <script src="src/vuex/load.js" type="text/javascript" charset="utf-8"></script>
+  </head>
+	<script type="text/javascript">
+		window.onload=function(){getRem(720,100)};window.onresize=function(){getRem(720,100)};function getRem(pwidth,prem){var html=document.getElementsByTagName("html")[0];var oWidth=document.body.clientWidth||document.documentElement.clientWidth;html.style.fontSize=oWidth/pwidth*prem+"px"}
+	</script>
+  <body>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>

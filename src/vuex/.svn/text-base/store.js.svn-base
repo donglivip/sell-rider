@@ -1,0 +1,14 @@
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
+const store = new Vuex.Store({
+	// 定义状态--里面定义一个名字：''
+	state: {
+		myurl:'http://192.168.2.185',//服务路径39.107.70.18
+		dingdanid:''//订单id
+	}
+})
+
+export default store

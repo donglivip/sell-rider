@@ -1,0 +1,362 @@
+<template>
+	<div class="wrapper">
+		<div class="header">
+			<div class="header-aside" @click="opennew('index')">
+				<img src="../../static/youjian.png">
+			</div>
+			<div class="header-content">我的订单</div>
+			<div class="header-aside"><!--
+				<img src="../../static/sou-suo.png"> -->
+			</div>
+		</div>
+		<div class="main">
+			<div class="main-one">
+				<div class="one-top">
+					<div class="top-text" @click="opennew('waimaidingdan')">外卖订单</div>
+					<div class="top-text top-news">跑腿订单</div>
+				</div>
+				<div class="one-bottom">
+					<div class="one-text" :class="myindex==1?'one-news':''" @click="bian(1)">全部</div>
+					<div class="one-text" :class="myindex==2?'one-news':''" @click="bian(2)">待取货</div>
+					<div class="one-text" :class="myindex==3?'one-news':''" @click="bian(3)">待送达</div>
+				</div>
+			</div>
+			<div class="box">
+				<div class="main-two" v-for="i in tabdata" @click="jump(i.usReplaceTakeId)">
+					<div class="two-top">
+						<div class="top-one">{{i.usRtIsType | xianshi}}</div>
+						<div class="top-two" v-if="i.minute!=null">剩余收件时间：{{i.minute}}分钟</div>
+						 <div class="top-two" v-if="i.minute==null">订单已完成</div>
+						<div class="top-three">
+							<div class="top-zi">起</div>
+							<div class="top-a">... ...</div>
+							<div class="top-word">{{i.usRtWarm}}km</div>
+							<div class="top-a">... ...</div>
+							<div class="top-zi">终</div>
+						</div>
+					</div>
+					<div class="two-bottom">
+						<div class="bottom-one">
+							<div class="bottom-text">起</div>
+							<div class="bottom-news">{{i.usRtProvince}}{{i.usRtDetails}}</div>
+						</div>
+						<div class="bottom-two">
+							<div class="bottom-zi">终</div>
+							<div class="bottom-word">{{i.usAdsProvince}}{{i.usAdsDetailed}}</div>
+						</div>
+						<div class="bottom-three">查看详情</div>
+<!-- 						<div class="bottom-three" v-if="i.usRtStatus==3" @click.stop="dian(i.usReplaceTakeId,4)">确认取货</div>
+						<div class="bottom-three" v-if="i.usRtStatus==4" @click.stop="dian(i.usReplaceTakeId,6)">确认完成</div> -->
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+	export default {
+		name: 'wodedingdan',
+		data() {
+			return {
+				tabdata:[],
+				myindex:1
+			}
+		},
+		methods: {
+			jump:function(id){
+				this.$store.state.dingdanid=id
+				this.$router.push({
+					name:'dingdanxiangqing'
+				})
+			},
+			dian:function(id,type){
+				var that = this
+				//	修改订单状态
+				$.ajax({
+					type: 'post',
+					url: that.myurl + '/rider/upadteUsReplaceTakes',
+					data: {
+						usReplaceTakeId:id,
+						usRtClassify:type,
+						tupe:2
+					},
+					success: function(res) {
+						if(res.status == 200) {
+
+						} else {
+							alert(res.msg)
+						}
+					},
+					error: function(res) {
+						alert('网络连接失败，请检查网络后再试！')
+					}
+				})
+			},
+			bian:function(id){
+				this.myindex=id
+				this.myajax()
+			},
+			myajax: function() {
+				var that = this
+				//		我的订单-跑腿订单
+				$.ajax({
+					type: 'post',
+					url: that.myurl + '/rider/queryReplaceTakePojo',
+					data: {
+						id: localStorage.getItem('myid'),
+						type:that.myindex,
+						long1:that.jing,
+						lat1:that.wei
+					},
+					success: function(res) {
+						if(res.status == 200) {
+							that.tabdata = res.data
+						} else {
+							alert(res.msg)
+						}
+					},
+					error: function(res) {
+						alert('网络连接失败，请检查网络后再试！')
+					}
+				})
+			},
+			back: function() {
+				this.$router.back()
+			},
+			opennew: function(target, id) {
+				this.$store.state.msdNewsId = id
+				this.$router.push({
+					name: target
+				})
+			}
+		},
+		mounted(){
+			this.myajax()
+		},
+			computed: {
+				myurl() {
+					return this.$store.state.myurl
+				},
+				jing() {
+					return this.$store.state.jing
+				},
+				wei() {
+					return this.$store.state.wei
+				}
+			},
+			filters: {
+				xianshi: function(id) {
+					if (id==1) {
+						return '代购订单'
+					} else if (id==2){
+						return '帮我取  '
+					} else if (id==3){
+						return '帮我送  '
+					}
+				}
+			}
+	}
+</script>
+
+<style scoped>
+	.wrapper{
+		background: #F7F7F9 ;
+	}
+	.header{
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0 .3rem;
+		height: 1rem;
+		background: #FFFFFF;
+	}
+	.header-aside{
+		width: .3rem;
+	}
+	.header-aside img{
+		height: .4rem;
+	}
+	.header-content{
+		font-size: .32rem;
+		color: #000000;
+	}
+	.main{
+		height: calc(100% - 1rem);
+	}
+	.box{
+		height: calc(100% - 2rem);
+		overflow-x: hidden;
+		overflow-y: scroll;
+	}
+	.main-one{
+		height: 1.7rem;
+		background: #FFFFFF;
+		padding-top: .2rem;
+	}
+	.one-top{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid #FF8190;
+		border-radius: .12rem;
+		overflow: hidden;
+		width: 4rem;
+		margin:  auto;
+	}
+	.top-text{
+		font-size: .28rem;
+		color: #FF8190 ;
+		background: #FFFFFF;
+		padding: .1rem .2rem;
+		flex: 1;
+		text-align: center;
+	}
+	.top-news{
+		color: #FFFFFF ;
+		background: #FF8190;
+
+	}
+	.one-bottom{
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+		height: .8rem;
+		margin-top: .3rem;
+	}
+	.one-text{
+		font-size: .28rem;
+		color: #000000;
+	}
+	.one-news{
+		font-size: .28rem;
+		color: #FF8190;
+		border-bottom: 2px solid #FF8190;
+		width: .4rem;
+		white-space: nowrap;
+		line-height: .8rem;
+		text-indent: -.2rem;
+	}
+	.main-two{
+		height: 7.8rem;
+		background: #FFFFFF;
+		margin: .2rem;
+		padding: 0 .3rem;
+		border-radius: .12rem;
+	}
+	.two-top{
+		height: 3.4rem;
+		border-bottom: 1px solid #EEEEEE;
+	}
+	.top-one{
+		height: 1rem;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		font-size: .3rem;
+		color: #000000;
+	}
+	.top-two{
+		height: 1.2rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: .45rem;
+		color: #000000;
+	}
+	.top-three{
+		height: 1.2rem;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+	}
+	.top-zi{
+		font-size: .22rem;
+		color: #FF8190;
+		border: 1px solid #FF8190;
+		width: .36rem;
+		height: .36rem;
+		border-radius: 1rem;
+		text-align: center;
+		line-height: .36rem;
+	}
+	.top-a{
+		margin: 0 .83rem;
+	}
+	.top-word{
+		font-size: .36rem;
+		color: #000000;
+	}
+	.two-bottom{
+		height: 4.4rem;
+	}
+	.bottom-one{
+		height: 1rem;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		margin-top: .4rem;
+	}
+	.bottom-text{
+		width: 4.6rem;
+		font-size: .22rem;
+		color: #FFFFFF;
+		background: #FF8190;
+		width: .36rem;
+		height: .36rem;
+		border-radius: 1rem;
+		margin-right: .3rem;
+		text-align: center;
+		line-height: .36rem;
+	}
+	.bottom-news{
+		font-size: .34rem;
+		color: #000000;
+		width: 6rem;
+		flex: 1;
+	}
+	.bottom-two{
+		height: 1.2rem;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+	}
+	.bottom-zi{
+		font-size: .22rem;
+		color: #FFFFFF;
+		background: #FF8190;
+		width: .36rem;
+		height: .36rem;
+		border-radius: 1rem;
+		margin-right: .3rem;
+		text-align: center;
+		line-height: .36rem;
+	}
+	.bottom-word{
+		width: 4.6rem;
+		font-size: .32rem;
+		color: #000000;
+		height: 1rem;
+		line-height: .5rem;
+		word-break: break-all;
+		overflow: hidden;
+		width: 6rem;
+		flex: 1;
+	}
+	.bottom-three{
+		height: .9rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: #FF8190;
+		border-radius: .12rem;
+		width: 6.2rem;
+		margin-top: .4rem;
+		font-size: .3rem;
+		color: #FFFFFF;
+	}
+
+
+</style>
