@@ -165,7 +165,7 @@
                 var dst = new plus.maps.Point(that.jing, that.wei); // 天安门
                 var src = new plus.maps.Point(result.geocodes[0].location.O, result.geocodes[0].location.P); // 大钟寺
                 // 调用系统地图显示
-                plus.maps.openSysMap( src, that.tabdata.usRtDetails, dst);
+                plus.maps.openSysMap( src, that.tabdata.usRtProvince +that.tabdata.usRtDetails, dst);
               } else {
                 //获取经纬度失败
               }
@@ -186,7 +186,7 @@
                 var dst = new plus.maps.Point(that.jing, that.wei); // 天安门
                 var src = new plus.maps.Point(result.geocodes[0].location.O, result.geocodes[0].location.P); // 大钟寺
                 // 调用系统地图显示
-                plus.maps.openSysMap(src, that.tabdata.usAdsDetailed, dst);
+                plus.maps.openSysMap(src, that.tabdata.usAdsProvince + that.tabdata.usAdsDetailed, dst);
               } else {
                 //获取经纬度失败
               }
