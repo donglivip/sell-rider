@@ -331,7 +331,6 @@ a{
 
   .header-text {
     font-size: 0.32rem;
-    color: #979797;
     height: 0.8rem;
     line-height: 0.8rem;
     box-sizing: border-box;
@@ -359,9 +358,7 @@ a{
 		overflow-y: scroll;
 	}
 	.main-one{
-		height: 1.7rem;
 		background: #FFFFFF;
-		padding-top: .2rem;
 	}
 	.one-top{
 		display: flex;
@@ -391,7 +388,6 @@ a{
 		align-items: center;
 		justify-content: space-around;
 		height: .8rem;
-		margin-top: .3rem;
 	}
 	.one-text{
 		font-size: .28rem;

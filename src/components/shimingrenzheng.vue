@@ -28,6 +28,12 @@
 					<div class="one-text">身份证号</div>
 					<input type="text" placeholder="输入身份证号" class="name" v-model="shenfen" />
 				</div>
+        <div class="main-three">上传头像<small>(请上传真实头像)</small></div>
+        <div class="main-four">
+        	<img src="../../static/shenfen.png" @click="upload('timg')" v-if="timg==''"/>
+        	<img :src="myurl + zimg" @click="upload('timg')" v-if="timg!=''"/>
+        	<div class="four-text">头像</div>
+        </div>
 				<div class="main-three">上传身份证</div>
 				<div class="main-four">
 					<img src="../../static/shenfen.png" @click="upload('zimg')" v-if="zimg==''"/>
@@ -62,7 +68,8 @@ export default {
 			uploadtarget: '',
 			zimg: '',
 			fimg: '',
-			simg: ''
+			simg: '',
+      timg:''
 		};
 	},
 	methods: {
@@ -172,7 +179,9 @@ export default {
 							thats.fimg = res.data;
 						} else if (thats.uploadtarget == 'simg') {
 							thats.simg = res.data;
-						}
+						}else if (thats.uploadtarget == 'timg') {
+            	thats.timg = res.data;
+            }
 					}
 				});
 			};
@@ -207,7 +216,8 @@ export default {
 					usRiCardId: that.shenfen,
 					usRiCardFrontImgUrl: that.zimg,
 					usRiCardBackImgUrl: that.fimg,
-					usRiCardHandheldImgUrl: that.simg
+					usRiCardHandheldImgUrl: that.simg,
+          usRiHeadImgUrl:that.timg
 				},
 				success: function(res) {
 					if (res.status == 200) {

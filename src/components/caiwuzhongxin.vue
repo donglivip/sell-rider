@@ -3,7 +3,7 @@
 		<div class="header">
 			<div class="header-top">
 				<div class="header-aside" @click="back()">
-					<img src="../../static/baiyou.png">
+					<img src="../../static/youjian.png">
 				</div>
 				<div class="header-content">财务中心</div>
 				<div class="header-aside"></div>
@@ -130,7 +130,7 @@
 	.header{
 		height: 3.2rem;
 		padding: 0 .3rem;
-		background: #FF8190;
+    background: #FFFFFF;
 	}
 	.header-top{
 		height: 1rem;
@@ -142,11 +142,10 @@
 		width: .3rem;
 	}
 	.header-aside img{
-		height: .4rem;
+		height: .35rem;
 	}
 	.header-content{
 		font-size: .32rem;
-		color: #FFFFFF;
 	}
 	.header-bottom{
 		height: 2.2rem;
@@ -154,15 +153,14 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+    border-bottom: 1px solid gainsboro;
 	}
 	.header-text{
 		font-size: .24rem;
-		color: #FFFFFF;
 		margin-bottom: .2rem;
 	}
 	.header-news{
 		font-size: .5rem;
-		color: #FFFFFF;
 	}
 	.main-one{
 		height: 3.2rem;

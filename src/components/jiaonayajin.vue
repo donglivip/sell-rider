@@ -2,7 +2,7 @@
 	<div class="wrapper">
 		<div class="header">
 			<div class="header-top">
-				<div class="header-aside" @click="back()"><img src="../../static/baiyou.png" /></div>
+				<div class="header-aside" @click="back()"><img src="../../static/youjian.png" /></div>
 				<div class="header-content">缴纳押金</div>
 				<div class="header-aside"></div>
 			</div>
@@ -217,7 +217,7 @@ export default {
 .header {
 	height: 3.2rem;
 	padding: 0 0.3rem;
-	background: #ff8190;
+	background: #FFFFFF;
 }
 .header-top {
 	height: 1rem;
@@ -229,11 +229,10 @@ export default {
 	width: 0.3rem;
 }
 .header-aside img {
-	height: 0.4rem;
+	height: 0.35rem;
 }
 .header-content {
 	font-size: 0.32rem;
-	color: #ffffff;
 }
 .header-bottom {
 	height: 2.2rem;
@@ -244,12 +243,10 @@ export default {
 }
 .header-text {
 	font-size: 0.24rem;
-	color: #ffffff;
 	margin-bottom: 0.2rem;
 }
 .header-news {
 	font-size: 0.5rem;
-	color: #ffffff;
 }
 
 .bottom {

@@ -8,21 +8,8 @@
       </div>
     </div>
     <div id="main">
-      <div class="group">
-        <div class="title">
-          1
-        </div>
-        <div class="text">
-          准则1
-        </div>
-      </div>
-      <div class="group">
-        <div class="title">
-          2
-        </div>
-        <div class="text">
-          准则2
-        </div>
+      <div class="group" v-html="workstate[0].maPcContent">
+
       </div>
     </div>
   </div>
@@ -33,11 +20,11 @@
   name: 'rule',
   data () {
     return {
-
+      workstate:''
     }
   },
   mounted(){
-
+    this.myajax()
   },
   methods:{
     back: function() {
@@ -47,10 +34,29 @@
 			this.$router.push({
 				name:target
 			})
-		}
+		},
+    myajax:function(){
+      var that=this
+       $.ajax({
+        type: 'post',
+        url: that.myurl + '/user/selectMaProtocolsName',
+        dataType: 'json',
+        data: {
+          title: '服务标准'
+        },
+        success: function(res) {
+            that.workstate=res.data
+        },
+        error: function(res) {
+          alert('网络连接失败，请检查网络后再试！')
+        }
+      })
+    }
   },
   computed:{
-
+ myurl() {
+        return this.$store.state.myurl
+      },
   },
   components:{
 

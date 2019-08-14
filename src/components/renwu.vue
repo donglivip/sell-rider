@@ -466,7 +466,6 @@ a{
     align-items: center;
     justify-content: space-around;
     height: 0.8rem;
-    margin-top: 0.1rem;
   }
 
   .one-text {

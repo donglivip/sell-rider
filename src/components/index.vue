@@ -69,7 +69,7 @@
       <div class="main-two">
         <div class="two-box">
           <img src="../../static/erweima.png">
-          <div class="two-text">推荐跑客</div>
+          <div class="two-text">推荐骑手</div>
         </div>
         <div class="two-box">
           <img src="../../static/erweima.png">
@@ -84,8 +84,9 @@
     <div class="mengceng" v-if="wode" @click="dian">
       <div class="m-box">
         <div class="m-top">
-          <img src="../../static/234564.jpg">
-          <div class="m-text">{{name=='null'?'新骑手':name}}</div>
+          <img src="../../static/234564.jpg" v-if="tdata.usRiHeadImgUrl ==null">
+          <img :src="tdata.usRiHeadImgUrl"  v-if="tdata.usRiHeadImgUrl !=null">
+          <div class="m-text">{{tdata.usRiName==null?'未实名骑手':tdata.usRiName}}</div>
         </div>
         <div class="m-coment" @click.stop="opennew('waimaidingdan')">
           <img src="../../static/wodedingdan.png">
@@ -136,7 +137,7 @@
         wdata: '',
         kdata: 0,
         ydata:0,
-        name: localStorage.getItem('name'),
+        tdata: '',
         swiperOption: {
         	autoplay: {
         		stopOnLastSlide: true,
@@ -152,6 +153,7 @@
     methods: {
       openwork:function(){
         // 切换工作状态
+        plus.nativeUI.showWaiting('开启中')
         var that=this
          $.ajax({
           type: 'post',
@@ -162,6 +164,7 @@
             type:that.workstate==0?1:2
           },
           success: function(res) {
+             plus.nativeUI.closeWaiting()
             if (res.status == 200) {
               if(that.workstate==0){
                 that.opennew('peisong')
@@ -203,7 +206,8 @@
       },
       myajax: function() {
         var that = this
-        plus.nativeUI.showWaiting('订单查询中')
+        plus.nativeUI.showWaiting('信息查询中')
+
         //			 查询今日外卖已完成订单数量
         $.ajax({
           type: 'post',
@@ -261,7 +265,44 @@
             alert('网络连接失败，请检查网络后再试！')
           }
         })
-          plus.nativeUI.closeWaiting()
+        //			 查询头像和用户名
+        $.ajax({
+          type: 'post',
+          url: that.myurl + '/rider/selectUsRiderName',
+          data: {
+            usRiderId : localStorage.getItem('myid')
+          },
+          dataType: 'json',
+          success: function(res) {
+            if (res.status == 200) {
+              that.tdata = res.data
+            } else {
+              alert(res.msg)
+            }
+          },
+          error: function(res) {
+            alert('网络连接失败，请检查网络后再试！')
+          }
+        })
+        //查询骑手工作状态
+        $.ajax({
+          type: 'post',
+          url: that.myurl + '/rider/queryUsRiderState',
+          data: {
+            id: localStorage.getItem('myid')
+          },
+          dataType: 'json',
+          success: function(res) {
+            if (res.status == 200) {
+              that.workstate = res.data.state
+              that.worktime = res.data.time
+            }
+             plus.nativeUI.closeWaiting()
+          },
+          error: function(res) {
+            alert('网络连接失败，请检查网络后再试！')
+          }
+        })
       },
       back: function() {
         this.$router.back()
@@ -271,38 +312,10 @@
         this.$router.push({
           name: target
         })
-      },
-      havework:function(){
-        var that=this
-         //			 查询工作状态
-          // plus.nativeUI.showWaiting()
-        $.ajax({
-          type: 'post',
-          url: that.myurl + '/rider/queryUsRiderState',
-          data: {
-            id: localStorage.getItem('myid')
-          },
-          dataType: 'json',
-          success: function(res) {
-            // plus.nativeUI.closeWaiting()
-            if (res.status == 200) {
-              that.workstate = res.data.state
-              that.worktime = res.data.time
-              // setTimeout(function(){
-              //   that.havework()
-              // },1000)
-            }
-          },
-          error: function(res) {
-            plus.nativeUI.closeWaiting()
-            alert('网络连接失败，请检查网络后再试！')
-          }
-        })
       }
     },
-    mounted() {
-      this.havework()
-      this.myajax()
+    created() {
+
       if (localStorage.getItem('myid') == null || localStorage.getItem('myid') == undefined) {
         this.$router.push({
           name: 'denglu'
@@ -310,6 +323,7 @@
       }
       var that=this
       function plusReady() {
+        that.myajax()
       	plus.runtime.getProperty(plus.runtime.appid, function(inf) {
       		$.ajax({
       			type: "post",
@@ -319,6 +333,7 @@
       				if (res.data != null ? res.data.bpAvRiderNum != inf.version : false) {
       					//										版本更新
       					plus.nativeUI.toast("正在为您更新版本~");
+                alert(that.myurl + res.data.bpAvRiderAppUrl)
       					plus.downloader.createDownload(that.myurl + res.data.bpAvRiderAppUrl, {
       						filename: "_doc/update/"
       					}, function(d, status) {
@@ -479,7 +494,7 @@ a{
   }
 
   .header-aside img {
-    height: .3rem;
+    height: .35rem;
   }
 
   .header-content {
@@ -530,6 +545,7 @@ a{
 
   .main {
     height: calc(100% - 3.6rem);
+    overflow: hidden;
   }
 
   .main-one {
@@ -549,7 +565,7 @@ a{
   }
 
   .one-left {
-    font-size: .24rem;
+    font-size: .3rem;
     color: #979797;
   }
 

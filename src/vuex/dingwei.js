@@ -3,6 +3,8 @@ document.addEventListener('plusready', onPlusReady, false);
 // 扩展API加载完毕，现在可以正常调用扩展API
 function onPlusReady(){
 	plus.geolocation.getCurrentPosition(function(p){
+   plus.navigator.setStatusBarBackground('#e9e9e9');
+   plus.navigator.setStatusBarStyle('dark')
 		store.state.jing=p.coords.longitude
 		store.state.wei=p.coords.latitude
 		store.state.sheng=p.address.province

@@ -82,6 +82,10 @@
           alert('手机号不能为空');
           return;
         }
+        if(!(/^1[3456789]\d{9}$/.test(that.shouji))){
+         alert("手机号格式错误")
+         return false;
+        }
         // if(that.yanzheng==''){
         // 	alert("验证码不能为空")
         // 	return
@@ -221,12 +225,15 @@
     padding: 0 0.2rem;
     width: 3.8rem;
     border-left: 1px solid #eeeeee;
+    font-size: .35rem;
   }
 
   input {
     outline: none;
   }
-
+  input::-webkit-input-placeholder{
+     font-size: .32rem!important;
+  }
   .two-text {
     font-size: 0.24rem;
     color: #b8b8b8;
