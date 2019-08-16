@@ -111,7 +111,6 @@ export default {
 	overflow-y: scroll;
 }
 .main-one {
-	height: 1.2rem;
 	background: #ffffff;
 	margin: 0.2rem 0.2rem 0 0.2rem;
 	border-radius: 0.12rem;

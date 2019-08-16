@@ -2,7 +2,7 @@
 	<div class="wrapper">
 		<div class="header">
 			<div class="header-top">
-				<div class="header-aside" @click="back()"><img src="../../static/baiyou.png" /></div>
+				<div class="header-aside" @click="back()"><img src="../../static/youjian.png" /></div>
 				<div class="header-content">服务中心</div>
 				<div class="header-aside"></div>
 			</div>
@@ -23,11 +23,6 @@
 					<div class="m-text">微信</div>
 					<!-- <img src="../../static/xuanse.png" /> -->
 				</div>
-				<!-- <div class="m-one">
-					<div class="m-text">余额</div>
-					<!-- <img src="../../static/xuanse.png" /> -->
-				<!-- </div> -->
-				<!-- <div class="m-two">确认充值</div> -->
 			</div>
 		</div>
 	</div>
@@ -198,7 +193,7 @@ export default {
 .header {
 	height: 3.2rem;
 	padding: 0 0.3rem;
-	background: #ff8190;
+	background: #FFFFFF;
 }
 .header-top {
 	height: 1rem;
@@ -214,7 +209,6 @@ export default {
 }
 .header-content {
 	font-size: 0.32rem;
-	color: #ffffff;
 }
 .header-bottom {
 	height: 2.2rem;
@@ -225,12 +219,10 @@ export default {
 }
 .header-text {
 	font-size: 0.24rem;
-	color: #ffffff;
 	margin-bottom: 0.2rem;
 }
 .header-news {
 	font-size: 0.5rem;
-	color: #ffffff;
 }
 
 .bottom {

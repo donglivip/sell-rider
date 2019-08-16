@@ -141,12 +141,12 @@ export default {
 						//骑手接单查询数量是否到达上限
 						$.ajax({
 							type: 'post',
-							url: that.myurl + '/rider/queryRiderOrderNum',
+							url: that.myurl + '/rider/queryRiderLastNum',
 							data: {
 								id: localStorage.getItem('myid')
 							},
 							success: function(res) {
-								if (res.status == 200) {
+								if (res.data >0) {
 									document.addEventListener('plusready', function(){
 										plus.nativeUI.closeWaiting()
 									   	plus.nativeUI.showWaiting('查询顺路单')
@@ -177,7 +177,7 @@ export default {
 										}
 									});
 								} else {
-									alert(res.msg);
+									alert('接单数量已达上限');
 								}
 							},
 							error: function(res) {
@@ -204,7 +204,7 @@ export default {
 		myajax: function() {
 			var that = this;
       //			 查询已接单数
-      plus.nativeUI.showWaiting('查询订单')
+      // plus.nativeUI.showWaiting('查询订单')
       $.ajax({
         type: 'post',
         url: that.myurl + '/rider/queryRiderFristNum',

@@ -8,7 +8,7 @@
       </div>
     </div>
     <div id="main">
-      <div class="group" v-html="workstate[0].maPcContent">
+      <div class="group" v-html="workstate[0].maPcContent" v-if="workstate.length!=0">
 
       </div>
     </div>

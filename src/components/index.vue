@@ -39,7 +39,8 @@
             <div class="content-news">今日完成</div>
           </div>
           <div class="content-content">
-            <img src="../../static/234564.jpg">
+           <img src="../../static/234564.jpg" v-if="tdata.usRiHeadImgUrl ==null">
+           <img :src="myurl + tdata.usRiHeadImgUrl"  v-if="tdata.usRiHeadImgUrl !=null">
           </div>
           <div class="content-right">
             <div class="content-text">{{wdata.price}}</div>
@@ -85,7 +86,7 @@
       <div class="m-box">
         <div class="m-top">
           <img src="../../static/234564.jpg" v-if="tdata.usRiHeadImgUrl ==null">
-          <img :src="tdata.usRiHeadImgUrl"  v-if="tdata.usRiHeadImgUrl !=null">
+          <img :src="myurl + tdata.usRiHeadImgUrl"  v-if="tdata.usRiHeadImgUrl !=null">
           <div class="m-text">{{tdata.usRiName==null?'未实名骑手':tdata.usRiName}}</div>
         </div>
         <div class="m-coment" @click.stop="opennew('waimaidingdan')">
@@ -206,7 +207,7 @@
       },
       myajax: function() {
         var that = this
-        plus.nativeUI.showWaiting('信息查询中')
+        // plus.nativeUI.showWaiting('信息查询中')
 
         //			 查询今日外卖已完成订单数量
         $.ajax({
@@ -322,6 +323,7 @@
         })
       }
       var that=this
+      that.myajax()
       function plusReady() {
         that.myajax()
       	plus.runtime.getProperty(plus.runtime.appid, function(inf) {
@@ -333,7 +335,6 @@
       				if (res.data != null ? res.data.bpAvRiderNum != inf.version : false) {
       					//										版本更新
       					plus.nativeUI.toast("正在为您更新版本~");
-                alert(that.myurl + res.data.bpAvRiderAppUrl)
       					plus.downloader.createDownload(that.myurl + res.data.bpAvRiderAppUrl, {
       						filename: "_doc/update/"
       					}, function(d, status) {

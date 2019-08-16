@@ -18,7 +18,11 @@ export default {
 					usRiderId: localStorage.getItem('myid')
 				},
 				success: function(res) {
-
+           console.log(JSON.stringify( {
+					usRiMapPlace: JSON.stringify([that.jing, that.wei]),
+					usRiderId: localStorage.getItem('myid')
+				}));
+            console.log("res: " + JSON.stringify(res));
         },error:function(err){
 
         }
