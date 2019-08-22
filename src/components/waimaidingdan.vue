@@ -24,7 +24,7 @@
           <div class="main-a">
             <div class="a-zi">#{{ i.usOrNum }}</div>
             <div class="a-han">{{ i.usTsCompanyName }}</div>
-            <div class="a-time">{{ i.usOrClaimTimeString }}送达</div>
+            <div class="a-time" v-if="myindex != 1">{{ i.usOrClaimTimeString }}送达</div>
           </div>
           <div class="main-b">
             <div class="b-left">取</div>
